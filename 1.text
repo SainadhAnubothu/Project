@@ -1,0 +1,300 @@
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into faculty_skill values(10005,'Java');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc course_master;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL NUMBER(5)
+ COURSE_NAME                                        VARCHAR2(50)
+ NO_OF_DAYS                                         NUMBER(5)
+
+SQL> select * from course_master;
+
+ COURSE_ID COURSE_NAME                                        NO_OF_DAYS
+---------- -------------------------------------------------- ----------
+         1 Java                                                       30
+         2 Networking                                                 45
+
+SQL> create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreign key(training_code) references training_program(train
+ing_code),foreign key(participant_id) references employee_master(employee_id));
+create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreign key(training_code) references training_program(training_c
+ode),foreign key(participant_id) references employee_master(employee_id))
+                                                                                                                                                                                                                                                                                                  *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list
+
+
+SQL> desc training_program;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TRAINING_CODE                                      NUMBER(5)
+ COURSE_CODE                                        NUMBER(5)
+ FACULTY_CODE                                       NUMBER(5)
+ START_DATE                                         DATE
+ END_DATE                                           DATE
+
+SQL> create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreignkey(training_code) references training_program(traini
+ng_code),foreign key(participant_id) references employee_master(employee_id));
+create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreignkey(training_code) references training_program(training_co
+de),foreign key(participant_id) references employee_master(employee_id))
+                                                                                                                                                                                                                                                     *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> drop table training_program;
+
+Table dropped.
+
+SQL> create table training_program(training_code number(5),course_code number(5)
+  2  ,faculty_code number(5),start_date date,end_date date);
+
+Table created.
+
+SQL> desc table training_program;
+Usage: DESCRIBE [schema.]object[@db_link]
+SQL> drop table training_program;
+
+Table dropped.
+
+SQL> create table training_program(training_code number(5) primary key,course_code number(5),faculty_code number(5),start_date date,end_date date,foreign key(course_code) references course_master(course_id),foreign key(faculty_code) references employee_master(employee_id));
+
+Table created.
+
+SQL> desc training_program;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TRAINING_CODE                             NOT NULL NUMBER(5)
+ COURSE_CODE                                        NUMBER(5)
+ FACULTY_CODE                                       NUMBER(5)
+ START_DATE                                         DATE
+ END_DATE                                           DATE
+
+SQL> create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreignkey(training_code) references training_program(traini
+ng_code),foreign key(participant_id) references employee_master(employee_id));
+create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreignkey(training_code) references training_program(training_co
+de),foreign key(participant_id) references employee_master(employee_id))
+                                                                                                                                                                                                                                                     *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create table feedback_master(training_code number(5),participant_id number(5),fb_prs_comm number(1),fb_clrfy_dbts number(1),fb_tm number(1),fb_hnd_out number(1),fb_hw_sw_ntwrk number(1),comments varchar2(200),suggestions varchar2(200),foreign key(training_code) references training_program(train
+ing_code),foreign key(participant_id) references employee_master(employee_id));
+
+Table created.
+
+SQL> desc feedback_master;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TRAINING_CODE                                      NUMBER(5)
+ PARTICIPANT_ID                                     NUMBER(5)
+ FB_PRS_COMM                                        NUMBER(1)
+ FB_CLRFY_DBTS                                      NUMBER(1)
+ FB_TM                                              NUMBER(1)
+ FB_HND_OUT                                         NUMBER(1)
+ FB_HW_SW_NTWRK                                     NUMBER(1)
+ COMMENTS                                           VARCHAR2(200)
+ SUGGESTIONS                                        VARCHAR2(200)
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from employee_master;
+
+EMPLOYEE_ID EMPLOYEE_NAME
+----------- --------------------------------------------------
+PASSWORD             ROLE
+-------------------- --------------------
+      10001 Navya
+navya123             Admin
+
+      10002 Shubham
+shubham123           Cordinator
+
+      10003 Seetha
+seetha123            Participant
+
+
+EMPLOYEE_ID EMPLOYEE_NAME
+----------- --------------------------------------------------
+PASSWORD             ROLE
+-------------------- --------------------
+      10004 Sindhu
+sindhu123            Faculty
+
+      10005 Mounica
+mounica123           Faculty
+
+
+SQL> select * from training_program;
+
+no rows selected
+
+SQL> insert into training_program values(training_code_sequence.nextval,1,10004,'12-Aug-2017','12-Sep-2017');
+
+1 row created.
+
+SQL> select * from training_program;
+
+TRAINING_CODE COURSE_CODE FACULTY_CODE START_DAT END_DATE
+------------- ----------- ------------ --------- ---------
+          100           1        10004 12-AUG-17 12-SEP-17
+
+SQL> insert into training_program values(training_code_sequence.nextval,1,10005,'16-May-2018','25-Jul-2018');
+
+1 row created.
+
+SQL> select * from training_program;
+
+TRAINING_CODE COURSE_CODE FACULTY_CODE START_DAT END_DATE
+------------- ----------- ------------ --------- ---------
+          100           1        10004 12-AUG-17 12-SEP-17
+          101           1        10005 16-MAY-18 25-JUL-18
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table training_participant_enrollment(training_code number(5),participant_id number(5),foreign key(training_code) references training_program(training_code),foreign key(participant_id) references employee_master(employee_id));
+create table training_participant_enrollment(training_code number(5),participant_id number(5),foreign key(training_code) references training_program(training_code),foreign key(participant_id) references employee_master(employee_id))
+             *
+ERROR at line 1:
+ORA-00972: identifier is too long
+
+
+SQL> create table training_partici_enroll(training_code number(5),participant_id number(5),foreign key(training_code) references training_program(training_code),foreign key(participant_id) references employee_master(employee_id));
+
+Table created.
+
+SQL> desc training_partici_enroll;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TRAINING_CODE                                      NUMBER(5)
+ PARTICIPANT_ID                                     NUMBER(5)
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into training_partici_enroll values(100,10003);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from training_partici_enroll;
+
+TRAINING_CODE PARTICIPANT_ID
+------------- --------------
+          100          10003
+
+SQL> select * from training_program,training_partici_enroll;
+
+TRAINING_CODE COURSE_CODE FACULTY_CODE START_DAT END_DATE  TRAINING_CODE
+------------- ----------- ------------ --------- --------- -------------
+PARTICIPANT_ID
+--------------
+          100           1        10004 12-AUG-17 12-SEP-17           100
+         10003
+
+          101           1        10005 16-MAY-18 25-JUL-18           100
+         10003
+
+
+SQL> select * from training_program,training_partici_enroll where training_program.training_code=training_partici_enroll.training_code;
+
+TRAINING_CODE COURSE_CODE FACULTY_CODE START_DAT END_DATE  TRAINING_CODE
+------------- ----------- ------------ --------- --------- -------------
+PARTICIPANT_ID
+--------------
+          100           1        10004 12-AUG-17 12-SEP-17           100
+         10003
+
+
+SQL> select distinct * from training_program,training_partici_enroll where training_program.training_code=training_partici_enroll.training_code;
+
+TRAINING_CODE COURSE_CODE FACULTY_CODE START_DAT END_DATE  TRAINING_CODE
+------------- ----------- ------------ --------- --------- -------------
+PARTICIPANT_ID
+--------------
+          100           1        10004 12-AUG-17 12-SEP-17           100
+         10003
+
+
+SQL> select distinct  from training_program,training_partici_enroll where training_program.training_code=training_partici_enroll.training_code;
+select distinct  from training_program,training_partici_enroll where training_program.training_code=training_partici_enroll.training_code
+                 *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select distinct * from training_program,training_partici_enroll where training_program.training_code=training_partici_enroll.training_code;
+
+TRAINING_CODE COURSE_CODE FACULTY_CODE START_DAT END_DATE  TRAINING_CODE
+------------- ----------- ------------ --------- --------- -------------
+PARTICIPANT_ID
+--------------
+          100           1        10004 12-AUG-17 12-SEP-17           100
+         10003
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from feedback_master;
+
+TRAINING_CODE PARTICIPANT_ID FB_PRS_COMM FB_CLRFY_DBTS      FB_TM FB_HND_OUT
+------------- -------------- ----------- ------------- ---------- ----------
+FB_HW_SW_NTWRK
+--------------
+COMMENTS
+--------------------------------------------------------------------------------
+SUGGESTIONS
+--------------------------------------------------------------------------------
+          100          10003           4             4          3          4
+             3
+Good
+No
+
+
+SQL> delete from feedback_master;
+
+1 row deleted.
+
+SQL> select * from feedback_master;
+
+TRAINING_CODE PARTICIPANT_ID FB_PRS_COMM FB_CLRFY_DBTS      FB_TM FB_HND_OUT
+------------- -------------- ----------- ------------- ---------- ----------
+FB_HW_SW_NTWRK
+--------------
+COMMENTS
+--------------------------------------------------------------------------------
+SUGGESTIONS
+--------------------------------------------------------------------------------
+          100          10003           4             4          4          4
+             4
+Good
+No
+
+
+SQL>
